@@ -3,7 +3,7 @@ import { z } from 'zod'
 
 // Server function for the search UI page
 export const searchDocs = createServerFn({ method: 'GET' })
-  .inputValidator(
+  .validator(
     z.object({
       query: z.string().min(1),
       section: z.string().optional(),
@@ -22,7 +22,7 @@ export const searchDocs = createServerFn({ method: 'GET' })
 
 // Server function for case-insensitive keyword (text) search
 export const keywordSearchDocs = createServerFn({ method: 'GET' })
-  .inputValidator(
+  .validator(
     z.object({
       query: z.string().min(1),
       section: z.string().optional(),
@@ -41,7 +41,7 @@ export const keywordSearchDocs = createServerFn({ method: 'GET' })
 
 // Server function for the expand-to-read-full-doc feature
 export const getDocContent = createServerFn({ method: 'GET' })
-  .inputValidator(z.object({ slug: z.string().min(1) }))
+  .validator(z.object({ slug: z.string().min(1) }))
   .handler(async ({ data }) => {
     const { getDb } = await import('./mongo')
     const db = await getDb()
