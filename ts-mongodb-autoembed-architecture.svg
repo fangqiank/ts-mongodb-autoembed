@@ -1,0 +1,173 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 780" font-family="system-ui,-apple-system,sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#475569"/>
+    </marker>
+    <marker id="arrow-blue" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#3b82f6"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#10b981"/>
+    </marker>
+    <filter id="shadow" x="-2%" y="-2%" width="104%" height="108%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1100" height="780" fill="#f8fafc" rx="12"/>
+
+  <!-- Title -->
+  <text x="550" y="36" text-anchor="middle" font-size="18" font-weight="700" fill="#0f172a">TanStack Start + MongoDB autoEmbed — Architecture</text>
+
+  <!-- ==================== CLIENT LAYER ==================== -->
+  <rect x="30" y="56" width="1040" height="200" rx="10" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
+  <text x="52" y="78" font-size="11" font-weight="600" fill="#3b82f6" letter-spacing="0.08em">CLIENT (Browser)</text>
+
+  <!-- Search Page -->
+  <rect x="50" y="92" width="280" height="148" rx="8" fill="white" stroke="#93c5fd" stroke-width="1" filter="url(#shadow)"/>
+  <text x="190" y="114" text-anchor="middle" font-size="13" font-weight="600" fill="#1e293b">Search Page</text>
+  <text x="190" y="131" text-anchor="middle" font-size="10" fill="#64748b">src/routes/index.tsx</text>
+  <line x1="70" y1="140" x2="310" y2="140" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="70" y="158" font-size="10" fill="#475569">- searchDocs (server fn)</text>
+  <text x="70" y="174" font-size="10" fill="#475569">- keywordSearchDocs (server fn)</text>
+  <text x="70" y="190" font-size="10" fill="#475569">- getDocContent (server fn)</text>
+  <text x="70" y="206" font-size="10" fill="#475569">- 300ms debounced input</text>
+  <text x="70" y="222" font-size="10" fill="#475569">- side-by-side results UI</text>
+
+  <!-- Chat Page -->
+  <rect x="370" y="92" width="280" height="148" rx="8" fill="white" stroke="#93c5fd" stroke-width="1" filter="url(#shadow)"/>
+  <text x="510" y="114" text-anchor="middle" font-size="13" font-weight="600" fill="#1e293b">AI Chat Page</text>
+  <text x="510" y="131" text-anchor="middle" font-size="10" fill="#64748b">src/routes/demo/ai-chat.tsx</text>
+  <line x1="390" y1="140" x2="630" y2="140" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="390" y="158" font-size="10" fill="#475569">- useDocsChat hook</text>
+  <text x="390" y="174" font-size="10" fill="#475569">- SSE streaming (Streamdown)</text>
+  <text x="390" y="190" font-size="10" fill="#475569">- tool-call result display</text>
+  <text x="390" y="206" font-size="10" fill="#475569">- auto-resize textarea</text>
+
+  <!-- AI Hook -->
+  <rect x="690" y="92" width="180" height="100" rx="8" fill="#dbeafe" stroke="#93c5fd" stroke-width="1" filter="url(#shadow)"/>
+  <text x="780" y="114" text-anchor="middle" font-size="13" font-weight="600" fill="#1e293b">useDocsChat</text>
+  <text x="780" y="131" text-anchor="middle" font-size="10" fill="#64748b">src/lib/ai-hook.ts</text>
+  <line x1="710" y1="140" x2="850" y2="140" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="710" y="158" font-size="10" fill="#475569">fetchServerSentEvents</text>
+  <text x="710" y="174" font-size="10" fill="#475569">-> /demo/api/ai/chat</text>
+
+  <!-- Shared Components -->
+  <rect x="900" y="92" width="150" height="148" rx="8" fill="#f0fdf4" stroke="#86efac" stroke-width="1" filter="url(#shadow)"/>
+  <text x="975" y="114" text-anchor="middle" font-size="13" font-weight="600" fill="#1e293b">Shared UI</text>
+  <line x1="920" y1="122" x2="1030" y2="122" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="920" y="140" font-size="10" fill="#475569">Header.tsx</text>
+  <text x="920" y="156" font-size="10" fill="#475569">Footer.tsx</text>
+  <text x="920" y="172" font-size="10" fill="#475569">ThemeToggle.tsx</text>
+  <text x="920" y="188" font-size="10" fill="#475569">__root.tsx</text>
+  <text x="920" y="204" font-size="10" fill="#475569">(SSR shell)</text>
+
+  <!-- Arrow: Chat -> Hook -->
+  <path d="M650,166 L690,142" stroke="#3b82f6" stroke-width="1.5" fill="none" marker-end="url(#arrow-blue)"/>
+
+  <!-- ==================== SERVER LAYER ==================== -->
+  <rect x="30" y="276" width="1040" height="120" rx="10" fill="#fefce8" stroke="#fde68a" stroke-width="1"/>
+  <text x="52" y="298" font-size="11" font-weight="600" fill="#ca8a04" letter-spacing="0.08em">SERVER (TanStack Start — createServerFn + Route Handlers)</text>
+
+  <!-- Server Functions -->
+  <rect x="50" y="310" width="320" height="72" rx="8" fill="white" stroke="#fcd34d" stroke-width="1" filter="url(#shadow)"/>
+  <text x="210" y="332" text-anchor="middle" font-size="13" font-weight="600" fill="#1e293b">Server Functions</text>
+  <text x="210" y="348" text-anchor="middle" font-size="10" fill="#64748b">src/lib/search.ts</text>
+  <text x="70" y="368" font-size="10" fill="#475569">searchDocs | keywordSearchDocs | getDocContent</text>
+
+  <!-- Chat API -->
+  <rect x="410" y="310" width="320" height="72" rx="8" fill="white" stroke="#fcd34d" stroke-width="1" filter="url(#shadow)"/>
+  <text x="570" y="332" text-anchor="middle" font-size="13" font-weight="600" fill="#1e293b">Chat API (SSE)</text>
+  <text x="570" y="348" text-anchor="middle" font-size="10" fill="#64748b">src/routes/demo/api.ai.chat.ts</text>
+  <text x="430" y="368" font-size="10" fill="#475569">POST handler -> chat() -> toServerSentEventsResponse()</text>
+
+  <!-- Search Tools -->
+  <rect x="770" y="310" width="280" height="72" rx="8" fill="white" stroke="#fcd34d" stroke-width="1" filter="url(#shadow)"/>
+  <text x="910" y="332" text-anchor="middle" font-size="13" font-weight="600" fill="#1e293b">Search Tool Def</text>
+  <text x="910" y="348" text-anchor="middle" font-size="10" fill="#64748b">src/lib/search-tools.ts</text>
+  <text x="790" y="368" font-size="10" fill="#475569">toolDefinition -> .server(vectorSearch)</text>
+
+  <!-- Arrow: Chat API -> Search Tool -->
+  <path d="M730,346 L770,346" stroke="#475569" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/>
+
+  <!-- ==================== SEARCH ENGINES ==================== -->
+  <rect x="30" y="416" width="510" height="120" rx="10" fill="#ecfdf5" stroke="#a7f3d0" stroke-width="1"/>
+  <text x="52" y="438" font-size="11" font-weight="600" fill="#059669" letter-spacing="0.08em">SEARCH ENGINES</text>
+
+  <!-- Vector Search -->
+  <rect x="50" y="450" width="230" height="72" rx="8" fill="white" stroke="#6ee7b7" stroke-width="1" filter="url(#shadow)"/>
+  <text x="165" y="472" text-anchor="middle" font-size="13" font-weight="600" fill="#1e293b">Vector Search</text>
+  <text x="165" y="488" text-anchor="middle" font-size="10" fill="#64748b">src/lib/vector-search.ts</text>
+  <text x="70" y="508" font-size="10" fill="#475569">$vectorSearch (autoEmbed)</text>
+
+  <!-- Keyword Search -->
+  <rect x="300" y="450" width="220" height="72" rx="8" fill="white" stroke="#6ee7b7" stroke-width="1" filter="url(#shadow)"/>
+  <text x="410" y="472" text-anchor="middle" font-size="13" font-weight="600" fill="#1e293b">Keyword Search</text>
+  <text x="410" y="488" text-anchor="middle" font-size="10" fill="#64748b">src/lib/keyword-search.ts</text>
+  <text x="320" y="508" font-size="10" fill="#475569">$regex case-insensitive</text>
+
+  <!-- ==================== LLM ADAPTER ==================== -->
+  <rect x="570" y="416" width="500" height="120" rx="10" fill="#fef2f2" stroke="#fecaca" stroke-width="1"/>
+  <text x="592" y="438" font-size="11" font-weight="600" fill="#dc2626" letter-spacing="0.08em">LLM ADAPTER</text>
+
+  <!-- DeepSeek -->
+  <rect x="590" y="450" width="460" height="72" rx="8" fill="white" stroke="#fca5a5" stroke-width="1" filter="url(#shadow)"/>
+  <text x="820" y="472" text-anchor="middle" font-size="13" font-weight="600" fill="#1e293b">DeepSeek Adapter</text>
+  <text x="820" y="488" text-anchor="middle" font-size="10" fill="#64748b">src/lib/deepseek.ts</text>
+  <text x="610" y="508" font-size="10" fill="#475569">BaseTextAdapter -> api.deepseek.com/chat/completions (SSE)</text>
+
+  <!-- Arrow: Server -> Search -->
+  <path d="M210,382 L210,416" stroke="#475569" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/>
+  <!-- Arrow: Server -> LLM -->
+  <path d="M570,382 L820,416" stroke="#475569" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/>
+
+  <!-- ==================== DATA LAYER ==================== -->
+  <rect x="30" y="556" width="1040" height="200" rx="10" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="1"/>
+  <text x="52" y="578" font-size="11" font-weight="600" fill="#7c3aed" letter-spacing="0.08em">DATA LAYER</text>
+
+  <!-- MongoDB -->
+  <rect x="50" y="594" width="340" height="148" rx="8" fill="white" stroke="#a78bfa" stroke-width="1" filter="url(#shadow)"/>
+  <text x="220" y="616" text-anchor="middle" font-size="13" font-weight="600" fill="#1e293b">MongoDB Atlas</text>
+  <text x="220" y="632" text-anchor="middle" font-size="10" fill="#64748b">src/lib/mongo.ts (singleton)</text>
+  <line x1="70" y1="640" x2="370" y2="640" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="70" y="658" font-size="10" fill="#475569">DB: tanstack</text>
+  <text x="70" y="674" font-size="10" fill="#475569">Collection: docs</text>
+  <text x="70" y="690" font-size="10" fill="#475569">Fields: slug, title, section,</text>
+  <text x="70" y="706" font-size="10" fill="#475569">  content (autoEmbed target), path, order</text>
+  <text x="70" y="722" font-size="10" fill="#475569">Connection: MONGODB_URI env var</text>
+
+  <!-- AutoEmbed Index -->
+  <rect x="430" y="594" width="310" height="148" rx="8" fill="#ede9fe" stroke="#a78bfa" stroke-width="1" filter="url(#shadow)"/>
+  <text x="585" y="616" text-anchor="middle" font-size="13" font-weight="600" fill="#1e293b">autoEmbed Index</text>
+  <text x="585" y="632" text-anchor="middle" font-size="10" fill="#64748b">docs_autoembed</text>
+  <line x1="450" y1="640" x2="720" y2="640" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="450" y="658" font-size="10" fill="#475569">type: vectorSearch</text>
+  <text x="450" y="674" font-size="10" fill="#475569">model: voyage-4 (Voyage AI)</text>
+  <text x="450" y="690" font-size="10" fill="#475569">path: content (text -> 1024-dim vector)</text>
+  <text x="450" y="706" font-size="10" fill="#475569">filter: section</text>
+  <text x="450" y="722" font-size="10" fill="#475569">numCandidates: 100 (ANN search)</text>
+
+  <!-- Voyage AI -->
+  <rect x="780" y="594" width="270" height="100" rx="8" fill="#fae8ff" stroke="#d8b4fe" stroke-width="1" filter="url(#shadow)"/>
+  <text x="915" y="616" text-anchor="middle" font-size="13" font-weight="600" fill="#1e293b">Voyage AI</text>
+  <text x="915" y="632" text-anchor="middle" font-size="10" fill="#64748b">External Embedding Service</text>
+  <line x1="800" y1="640" x2="1030" y2="640" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="800" y="658" font-size="10" fill="#475569">- auto-embed on document insert</text>
+  <text x="800" y="674" font-size="10" fill="#475569">- auto-embed on $vectorSearch query</text>
+  <text x="800" y="690" font-size="10" fill="#475569">- Free: 3 RPM w/o billing</text>
+
+  <!-- Arrows: Search -> MongoDB -->
+  <path d="M165,522 L165,556" stroke="#475569" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/>
+  <path d="M410,522 L300,556" stroke="#475569" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/>
+
+  <!-- Arrow: MongoDB -> autoEmbed -->
+  <path d="M390,668 L430,668" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/>
+
+  <!-- Arrow: autoEmbed -> Voyage AI -->
+  <path d="M740,668 L780,668" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/>
+
+  <!-- Data flow annotation -->
+  <rect x="430" y="710" width="310" height="26" rx="4" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="1" stroke-dasharray="4,2"/>
+  <text x="585" y="727" text-anchor="middle" font-size="9" fill="#7c3aed">Atlas auto-embeds docs &amp; queries via Voyage AI — zero embedding code in app</text>
+</svg>
